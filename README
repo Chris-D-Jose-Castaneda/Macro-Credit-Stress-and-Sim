@@ -1,0 +1,26 @@
+# 📊 Macro–Credit Stressboard
+
+One cohesive engine: **macro & credit → stress score → markets → options**. Built as a research notebook + a reactive Streamlit UI. 
+
+## Research
+
+* **Data & research:** 15 FRED series → **43,910** engineered rows; **22,534** ETF price rows; stress composite + grid-search backtests (best **Sharpe ≈ 0.62**, **MDD −27.5%**).
+* **Scenarios & UI:** COVID ’20 / Hikes ’22 PnL, stress-linked Monte Carlo options, 3D surface, correlations, and CSV export.
+
+## Notebook (ETL → Features → Strategy)
+
+* **Ingest & persist:** FRED series and LSEG/Eikon ETFs → Supabase tables: `series_meta`, `macro_series`, `macro_features`, `market_prices`.
+* **Features & composite:** rolling %Δ, YoY, and **5-year z-scores** → **STRESS_SCORE** (HY/IG OAS, curve inversion, VIX, labor).
+* **Backtests:** stress-threshold regime sleeves (risk-on/off) + KPIs, **grid search** (threshold/weights/lag/slippage) → `backtests`, `backtest_daily`, `tuning_results`, `scenario_pnl`.
+
+## 🖥️ Streamlit App
+
+* **Macro/Credit panel:** pick series, resample (D/W/M), levels or % changes; live **stress gauge (0–100)**.
+* **Markets:** SPY/HYG/LQD/MBS/10Y with indexing, deltas, log scale.
+* **Options:** risk-neutral Monte Carlo where **σ scales with stress**; call/put values + **3D strike/tenor surface**.
+* **Correlations & export:** heatmap across macro + markets, quick CSV download.
+
+## 🔗 Relation
+
+* **Notebook** builds and **persists** clean series/features, the **stress recipe**, and **backtest results**.
+* **Streamlit** uses the **same stress construction** and market feeds  for demos and scenario analysis.
