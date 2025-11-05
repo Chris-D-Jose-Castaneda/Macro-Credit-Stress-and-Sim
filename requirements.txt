@@ -9,4 +9,4 @@ yfinance==0.2.66
 fredapi==0.5.2
 python-dotenv==1.1.1
 eikon==1.1.18
-
+plotly==6.3.0
